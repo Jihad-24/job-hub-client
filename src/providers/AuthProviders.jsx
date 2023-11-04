@@ -13,7 +13,7 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProviders = ({children}) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [isDark, setIsDark] = useState(false)
+    const [isDark, setIsDark] = useState(false);
 
     const createUser = (email, password) => {
         setLoading(true);
