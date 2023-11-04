@@ -50,7 +50,7 @@ const Login = () => {
                 const displayName = result?.user?.displayName;
                 const user = { email, displayName }
 
-                fetch('https://digital-dynamo-jihad-24.vercel.app/user', {
+                fetch('http://localhost:5000/user', {
                     method: "POST",
                     headers: {
                         'content-type': 'application/json'
