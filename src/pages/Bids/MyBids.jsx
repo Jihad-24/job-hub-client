@@ -6,15 +6,24 @@ import Swal from "sweetalert2";
 
 const MyBids = () => {
     const { user } = useAuth();
+    const userEmail = user?.email;
     const [myBids, setMyBids] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
+
 
     useEffect(() => {
-        fetch(`http://localhost:5000/mybids?email=${user?.email}`)
+        setIsLoading(true);
+        fetch(`http://localhost:5000/mybids`)
             .then(res => res.json())
             .then(data => {
-                setMyBids(data);
+                const myJobs = data.filter(item => item.email === userEmail);
+                setMyBids(myJobs);
+                setIsLoading(false);
             })
-    }, [user])
+            .catch(eror => {
+                console.log(eror.message);
+            })
+    }, [userEmail])
 
     const handleDelete = (id) => {
         // console.log(id);
@@ -72,36 +81,49 @@ const MyBids = () => {
 
     return (
         <div>
-            <div className="overflow-x-auto w-full">
-                <table className="table w-full">
-                    {/* head */}
-                    <thead>
-                        <tr>
-                            <th>
-                                <label>
-                                    <input type="checkbox" className="checkbox" />
-                                </label>
-                            </th>
-                            <th>Job title</th>
-                            <th>Email</th>
-                            <th>Deadline</th>
-                            <th>Status</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            myBids?.map(booking => <MyBidsRow
-                                key={booking._id}
-                                booking={booking}
-                                handleDelete={handleDelete}
-                                handleBidConfirm={handleBidConfirm}
-                            ></MyBidsRow>)
-                        }
-                    </tbody>
+            {
+                isLoading ?
+                    <div>Loading...</div>
+                    :
+                    (myBids?.length ?
+                        <div className="overflow-x-auto w-full">
+                            <table className="table w-full">
+                                {/* head */}
+                                <thead>
+                                    <tr>
+                                        <th>
 
-                </table>
-            </div>
+                                        </th>
+                                        <th>Job title</th>
+                                        <th>Email</th>
+                                        <th>Deadline</th>
+                                        <th>Status</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        myBids?.map(booking => <MyBidsRow
+                                            key={booking._id}
+                                            booking={booking}
+                                            handleDelete={handleDelete}
+                                            handleBidConfirm={handleBidConfirm}
+                                        ></MyBidsRow>)
+                                    }
+                                </tbody>
+
+                            </table>
+                        </div>
+                        :
+                        <div className="text-center mx-auto md:w-[700px] lg:w-[1100px]">
+                            <h1 className="font-bold loading-10  text-3xl">
+                                <span className="font-extrabold text-red-600" data-aos="fade-down"> Oops, </span> <br />
+                                it seems like there are currently no <br /> Bid has been added. Please <br /> add new Bid to see them.
+                            </h1>
+                        </div>
+
+                    )
+            }
         </div>
     );
 };

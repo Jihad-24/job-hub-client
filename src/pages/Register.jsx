@@ -124,7 +124,6 @@ const Register = () => {
                 })
             })
     }
-    console.log(navigate);
 
     return (
         <div className='pb-24' >

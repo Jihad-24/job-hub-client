@@ -35,7 +35,7 @@ const JobDetails = () => {
         const deadline = form.deadline.value;
 
         const newProduct = { jobTitle, email, buyer, price, deadline }
-        console.log(newProduct);
+        // console.log(newProduct);
 
         // send data to the server
         fetch('http://localhost:5000/mybids', {

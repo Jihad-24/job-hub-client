@@ -1,4 +1,4 @@
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import icon from "../assets/react.svg"
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
@@ -6,10 +6,11 @@ import { useEffect, useState } from "react";
 
 
 const NavBar = () => {
-
+    
     const { setLoading, user, logOut } = useAuth();
     const [profilePic, setProfilePic] = useState();
     const email = user?.email;
+    const navigate = useNavigate();
 
     useEffect(() => {
         setLoading(true)
@@ -29,7 +30,10 @@ const NavBar = () => {
     const handleSignOut = () => {
         logOut()
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
+                if (!result.user) {
+                    navigate('/');
+                }
             })
             .catch(error => {
                 console.log(error.message);
