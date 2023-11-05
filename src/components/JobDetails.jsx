@@ -1,11 +1,16 @@
+/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAuth from "../hooks/useAuth";
 
 
 const JobDetails = () => {
     const id = useParams();
-    // console.log(id);
+    const { user } = useAuth();
     const [cardData, setCardData] = useState(null);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         fetch('http://localhost:5000/jobs')
@@ -20,10 +25,46 @@ const JobDetails = () => {
             });
     }, [id])
 
+    const handleAddBid = event => {
+        event.preventDefault();
+        const form = event.target;
+        const email = form.email.value;
+        const buyer = form.buyer.value;
+        const price = form.price.value;
+        const jobTitle = cardData?.job_title;
+        const deadline = form.deadline.value;
+
+        const newProduct = { jobTitle, email, buyer, price, deadline }
+        console.log(newProduct);
+
+        // send data to the server
+        fetch('http://localhost:5000/mybids', {
+            method: "POST",
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newProduct)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if (data.insertedId) {
+                    Swal.fire({
+                        title: 'Success!',
+                        text: 'Product Added Successfully',
+                        icon: 'success',
+                        confirmButtonText: 'Cool'
+                    })
+                    navigate('/mybids')
+                }
+
+            })
+    }
+
     return (
         <div className="">
             <div className="mx-auto flex justify-around">
-                <div className="card w-96 my-4 card-compact bg-base-100 shadow-xl">
+                <div className="card w-96 my-4 card-compact">
                     <figure><img className='w-full' src={cardData?.image} alt="Shoes" /></figure>
                     <div className="card-body">
                         <h2 className="card-title">{cardData?.job_title}</h2>
@@ -32,6 +73,54 @@ const JobDetails = () => {
                         <p>Description: {cardData?.short_description}</p>
                     </div>
                 </div>
+            </div>
+            <div className=' pb-24'>
+                <h1 className='text-center font-extrabold mb-10 text-purple-500 text-4xl'>Place Your Bid</h1>
+                <form onSubmit={handleAddBid}>
+                    <div className='md:flex gap-6 justify-center mb-8'>
+                        <div className="form-control md:w-1/2">
+                            <label className="label">
+                                <span className='label-text font-bold'>Email Address</span>
+                            </label>
+                            <label className="input-group">
+                                <span className='font-medium'>Email</span>
+                                <input type="text" name='email' defaultValue={user?.email} className="input input-bordered w-full" disabled />
+                            </label>
+                        </div>
+                        <div className="form-control md:w-1/2">
+                            <label className="label">
+                                <span className='label-text font-bold'>Buyer Email Address</span>
+                            </label>
+                            <label className="input-group">
+                                <span className='font-medium'>Buyer</span>
+                                <input type="text" name='buyer' defaultValue={user?.email} className="input input-bordered w-full" disabled />
+                            </label>
+                        </div>
+                    </div>
+                    <div className='md:flex gap-6 justify-center mb-8'>
+                        <div className="form-control md:w-1/2">
+                            <label className="label">
+                                <span className='label-text font-bold'>Price Range</span>
+                            </label>
+                            <label className="input-group">
+                                <span className='font-medium'>Price</span>
+                                <input type="text" name='price' placeholder={cardData?.price_range} className="input input-bordered w-full" required />
+                            </label>
+                        </div>
+                        <div className="form-control md:w-1/2">
+                            <label className="label">
+                                <span className='label-text font-bold'>Deadline</span>
+                            </label>
+                            <label className="input-group">
+                                <span className='font-medium'>Date</span>
+                                <input type="text" name='deadline' defaultValue={cardData?.deadline} className="input input-bordered w-full" required />
+                            </label>
+                        </div>
+
+                    </div>
+                    <input className='btn btn-block bg-[#D2B48C]' type="submit" value="Bid on the project" id="submitButton"  disabled={user?.email === cardData?.email} />
+                </form>
+
             </div>
         </div>
     );

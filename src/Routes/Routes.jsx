@@ -5,6 +5,7 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import ErrorPage from "../pages/ErrorPage";
 import JobDetails from "../components/JobDetails";
+import MyBids from "../pages/Bids/MyBids";
 
 const router = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Home></Home>,
+      },
+      {
+        path: "/mybids",
+        element:<MyBids></MyBids>,
       },
       {
         path: '/jobs/:id',
