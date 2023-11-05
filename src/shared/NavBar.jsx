@@ -55,7 +55,7 @@ const NavBar = () => {
         }
         {user && <>
             <li className="font-semibold"><NavLink to="/addjob">Add Job</NavLink></li>
-            <li className="font-semibold"><NavLink to="/myjobs">My Jobs</NavLink></li>
+            <li className="font-semibold"><NavLink to="/mypostedjobs">My Jobs</NavLink></li>
             <li className="font-semibold"><NavLink to="/mybids">My Bids</NavLink></li>
             <li className="font-semibold"><NavLink to="/dashboard">Bid Requests</NavLink></li>
             <li className="font-semibold"><NavLink to="/dashboard">Dashboard</NavLink></li>

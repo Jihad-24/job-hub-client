@@ -118,7 +118,7 @@ const JobDetails = () => {
                         </div>
 
                     </div>
-                    <input className='btn btn-block bg-[#D2B48C]' type="submit" value="Bid on the project" id="submitButton"  disabled={user?.email === cardData?.email} />
+                    <input className='btn btn-block bg-[#D2B48C]' type="submit" value="Bid on the project" id="submitButton" />
                 </form>
 
             </div>
