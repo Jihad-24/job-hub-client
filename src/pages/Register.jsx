@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 
 const Register = () => {
-    const { isDark, createUser, signInGoogle } = useAuth();
+    const { createUser, signInGoogle } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -23,7 +23,8 @@ const Register = () => {
         const name = form.name.value;
         const email = form.email.value;
         const password = form.password.value;
-        console.log(name, terms, email, password);
+        const photo = form.photoURL.value;
+        console.log(name, terms, email, password, photo);
 
         // reset error & success
         setRegisterError('');
@@ -42,6 +43,10 @@ const Register = () => {
         else if (!terms) {
             setRegisterError('Please Accept Our Terms and Condition!');
             return;
+        } else if (!photo) {
+            setRegisterError('please provide a photoURL')
+        } else if (!name) {
+            setRegisterError('please provide your Name')
         }
 
         // create User
@@ -49,7 +54,7 @@ const Register = () => {
             .then(result => {
                 console.log(result.user);
                 setSuccess('User Created Successfully')
-                const user = { name, email, password };
+                const user = { name, email, password, photo };
                 fetch('http://localhost:5000/user', {
                     method: "POST",
                     headers: {
@@ -88,8 +93,7 @@ const Register = () => {
                 console.log(result.user)
                 const email = result?.user?.email;
                 const displayName = result?.user?.displayName;
-                const user = { email, displayName }
-
+                const user = { email, displayName };
                 fetch('http://localhost:5000/user', {
                     method: "POST",
                     headers: {
@@ -123,12 +127,12 @@ const Register = () => {
     console.log(navigate);
 
     return (
-        <div className={`pb-24 ${isDark ? "bg-black text-white" : "bg-white text-black"}`} >
+        <div className='pb-24' >
             <div className="">
                 <h1 className="text-4xl mt-10 font-bold text-center" data-aos="fade-down">Register your account!</h1>
                 <form
                     onSubmit={handleRegister}
-                    className={`card-body md:w-3/4 lg:w-1/2 mx-auto ${isDark && "text-black"}`}
+                    className='card-body md:w-3/4 lg:w-1/2 mx-auto'
                 >
                     {
                         registerError && <p className="text-red-700">{registerError}</p>
@@ -138,7 +142,7 @@ const Register = () => {
                     }
                     <div className="form-control " data-aos="fade-left">
                         <label className="label">
-                            <span className={`label-text ${isDark && "text-white"}`}>Your Name</span>
+                            <span className='label-text'>Your Name</span>
                         </label>
                         <input
                             type="text"
@@ -148,7 +152,7 @@ const Register = () => {
                     </div>
                     <div className="form-control " data-aos="fade-right">
                         <label className="label">
-                            <span className={`label-text ${isDark && "text-white"}`}>Email Address</span>
+                            <span className='label-text'>Email Address</span>
                         </label>
                         <input
                             type="email"
@@ -158,7 +162,7 @@ const Register = () => {
                     </div>
                     <div className="form-control relative" data-aos="fade-left">
                         <label className="label">
-                            <span className={`label-text ${isDark && "text-white"}`}>Password</span>
+                            <span className='label-text'>Password</span>
                         </label>
                         <input
                             type={showPassword ? "text" : "password"}
@@ -171,9 +175,19 @@ const Register = () => {
                             }
                         </span>
                     </div>
+                    <div className="form-control " data-aos="fade-right">
+                        <label className="label">
+                            <span className='label-text'>Your photoURL</span>
+                        </label>
+                        <input
+                            type="text"
+                            name="photoURL"
+                            placeholder="Enter Your photoURL"
+                            className="input input-bordered bg-slate-200" required />
+                    </div>
                     <div className="flex" >
                         <input type="checkbox" name="terms" id="terms" />
-                        <label htmlFor="terms"><a href="#" className={`${isDark && "text-white"}`}>Acceept our Terms and Condition</a></label>
+                        <label htmlFor="terms"><a href="#">Acceept our Terms and Condition</a></label>
                     </div>
                     <div className="form-control mt-4">
                         <button className="btn btn-primary">Register</button>

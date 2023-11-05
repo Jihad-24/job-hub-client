@@ -5,12 +5,11 @@ import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from '../hooks/useAuth';
 
 const Login = () => {
-    const { isDark, signIn, signInGoogle } = useAuth();
+    const { signIn, signInGoogle } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
     const [loginError, setLoginError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-    // console.log('login location', location);
 
     const handleLogin = e => {
         e.preventDefault();
@@ -83,19 +82,18 @@ const Login = () => {
     console.log(location);
 
     return (
-        <div className={`pb-24 ${isDark ? "bg-black text-white" : "bg-white text-black"}`}>
+        <div className='pb-24'>
             <div >
                 <h1 className="text-4xl mt-10 font-bold text-center" data-aos="fade-down">Login your account!</h1>
                 <form
                     onSubmit={handleLogin}
-
-                    className={`card-body md:w-3/4 lg:w-1/2 mx-auto ${isDark && "text-black"}`}>
+                    className='card-body md:w-3/4 lg:w-1/2 mx-auto'>
                     {
                         loginError && <p className="text-red-700">{loginError}</p>
                     }
                     <div className="form-control " data-aos="fade-right">
                         <label className="label">
-                            <span className={`label-text ${isDark && "text-white"}`}>Email Address</span>
+                            <span className='label-text'>Email Address</span>
                         </label>
                         <input
                             type="email"
@@ -105,7 +103,7 @@ const Login = () => {
                     </div>
                     <div className="form-control relative" data-aos="fade-left">
                         <label className="label">
-                            <span className={`label-text ${isDark && "text-white"}`}>Password</span>
+                            <span className='label-text'>Password</span>
                         </label>
                         <input
                             type={showPassword ? "text" : "password"}
@@ -120,7 +118,7 @@ const Login = () => {
                         <label className="label">
                             <a
                                 href="#"
-                                className={`label-text-alt link link-hover ${isDark && "text-white"}`}>
+                                className='label-text-alt link link-hover'>
                                 Forgot password?</a>
                         </label>
                     </div>

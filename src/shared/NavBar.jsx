@@ -1,13 +1,30 @@
 import { Link, NavLink } from "react-router-dom";
 import icon from "../assets/react.svg"
 import Swal from "sweetalert2";
-import { BsFillMoonStarsFill, BsFillSunFill } from 'react-icons/bs';
 import useAuth from "../hooks/useAuth";
+import { useEffect, useState } from "react";
 
 
 const NavBar = () => {
 
-    const { isDark, setIsDark, user, logOut } = useAuth();
+    const { setLoading, user, logOut } = useAuth();
+    const [profilePic, setProfilePic] = useState();
+    const email = user?.email;
+
+    useEffect(() => {
+        setLoading(true)
+        if (email) {
+            fetch(`http://localhost:5000/user/${email}`)
+                .then(res => res.json())
+                .then(data => {
+                    setProfilePic(data)
+                })
+                .catch(error => {
+                    console.log(error.message);
+                })
+        }
+    }, [email, setLoading])
+    // console.log(profilePic.photo);
 
     const handleSignOut = () => {
         logOut()
@@ -37,15 +54,15 @@ const NavBar = () => {
             !user && <li className="font-semibold"><NavLink to={"/register"}>Register</NavLink></li>
         }
         {user && <>
-            <li className="font-semibold"><NavLink to="/addtocart">Add Product</NavLink></li>
-            <li className="font-semibold"><NavLink to="/cart">My Cart</NavLink></li>
+            <li className="font-semibold"><NavLink to="/addjob">Add Job</NavLink></li>
+            <li className="font-semibold"><NavLink to="/myjobs">My Jobs</NavLink></li>
+            <li className="font-semibold"><NavLink to="/dashboard">My Bids</NavLink></li>
+            <li className="font-semibold"><NavLink to="/dashboard">Bid Requests</NavLink></li>
             <li className="font-semibold"><NavLink to="/dashboard">Dashboard</NavLink></li>
-        </>}
+        </>
+        }
     </>
 
-    const handleTheam = () => {
-        setIsDark(!isDark)
-    }
 
     return (
         <div>
@@ -72,16 +89,17 @@ const NavBar = () => {
                     </ul>
                 </div>
                 <div>
-                    <div onClick={handleTheam} className="btn">{isDark ? <BsFillSunFill /> : <BsFillMoonStarsFill />}</div>
+
                 </div>
                 <div className="navbar-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
+                            {/* <img src="https://i.ibb.co/2FngQt8/user.png" alt="" /> */}
 
                             {!user?.photoURL ?
-                                <img src="https://i.ibb.co/2FngQt8/user.png" alt="" />
+                                <img src={profilePic && profilePic.photo ? profilePic?.photo : 'https://i.ibb.co/2FngQt8/user.png'} alt="" />
                                 :
-                                <img src={user?.photoURL} alt="" />
+                                <img src={user?.photoURL && user?.photoURL} alt="" />
                             }
 
                         </div>
@@ -89,7 +107,9 @@ const NavBar = () => {
                     </label>
                     <div className="hidden md:block">
                         <Link to={"/profile"}>
-                            <p className="px-1 font-medium">{user && user?.displayName}</p>
+                            <p className="px-1 font-medium">
+                                {user && user?.displayName ? user?.displayName : (profilePic && profilePic?.name)}
+                            </p>
                         </Link>
                     </div>
                     {
