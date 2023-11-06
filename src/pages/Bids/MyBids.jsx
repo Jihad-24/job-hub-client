@@ -16,7 +16,7 @@ const MyBids = () => {
         fetch(`http://localhost:5000/mybids`)
             .then(res => res.json())
             .then(data => {
-                const myJobs = data.filter(item => item.email === userEmail);
+                const myJobs = data?.filter(item => item.email === userEmail);
                 setMyBids(myJobs);
                 setIsLoading(false);
             })
