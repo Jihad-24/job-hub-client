@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import { useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 
@@ -8,9 +7,10 @@ import useAuth from "../hooks/useAuth";
 const JobDetails = () => {
     const id = useParams();
     const { user } = useAuth();
+    const [btnBlock, setBtnBlock] = useState(null);
     const [cardData, setCardData] = useState(null);
     const navigate = useNavigate();
-
+    const [clickedId, setClickedId] = useState(null);
 
     useEffect(() => {
         fetch('http://localhost:5000/jobs')
@@ -25,16 +25,28 @@ const JobDetails = () => {
             });
     }, [id])
 
+    useEffect(() => {
+        fetch(`http://localhost:5000/mybids`)
+            .then(res => res.json())
+            .then(data => {
+                const button = data?.find(item => item.email === user?.email);
+                const buttonid = data?.find(item => item.job_id === cardData?._id);
+                setBtnBlock(button);
+                setClickedId(buttonid);
+            })
+    }, [user, cardData])
+
     const handleAddBid = event => {
         event.preventDefault();
         const form = event.target;
         const email = form.email.value;
         const buyer = form.buyer.value;
         const price = form.price.value;
+        const job_id = cardData?._id;
         const jobTitle = cardData?.job_title;
         const deadline = form.deadline.value;
 
-        const newProduct = { jobTitle, email, buyer, price, deadline }
+        const newProduct = { jobTitle, email, buyer, price, deadline, job_id }
         // console.log(newProduct);
 
         // send data to the server
@@ -47,7 +59,7 @@ const JobDetails = () => {
         })
             .then(res => res.json())
             .then(data => {
-                console.log(data);
+                // console.log(data);
                 if (data.insertedId) {
                     Swal.fire({
                         title: 'Success!',
@@ -118,7 +130,12 @@ const JobDetails = () => {
                         </div>
 
                     </div>
-                    <input className='btn btn-block bg-[#D2B48C]' type="submit" value="Bid on the project" id="submitButton" />
+                    <input
+                        className='btn btn-block bg-[#D2B48C]'
+                        type="submit"
+                        value="Bid on the project"
+                        disabled={user?.email === btnBlock?.email && cardData && cardData._id === clickedId?.job_id}
+                    />
                 </form>
 
             </div>
