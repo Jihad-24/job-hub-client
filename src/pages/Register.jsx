@@ -93,7 +93,8 @@ const Register = () => {
                 console.log(result.user)
                 const email = result?.user?.email;
                 const displayName = result?.user?.displayName;
-                const user = { email, displayName };
+                const role = 'User';
+                const user = { email, displayName ,role};
                 fetch('http://localhost:5000/user', {
                     method: "POST",
                     headers: {
@@ -183,6 +184,15 @@ const Register = () => {
                             name="photoURL"
                             placeholder="Enter Your photoURL"
                             className="input input-bordered bg-slate-200" required />
+                    </div>
+                    <div className="form-control " data-aos="fade-right">
+                        <label className="label">
+                            <span className='label-text'>Your Role</span>
+                        </label>
+                        <select name="role" id="" required>
+                            <option value="Admin">Admin</option>
+                            <option value="User">User</option>
+                        </select>
                     </div>
                     <div className="flex" >
                         <input type="checkbox" name="terms" id="terms" />

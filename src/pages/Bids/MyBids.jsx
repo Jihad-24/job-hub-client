@@ -63,7 +63,7 @@ const MyBids = () => {
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ status: 'confirm' })
+            body: JSON.stringify({ status: 'pending' })
         })
             .then(res => res.json())
             .then(data => {
@@ -72,7 +72,8 @@ const MyBids = () => {
                     // update state
                     const remaining = myBids.filter(booking => booking._id !== id);
                     const updated = myBids.find(booking => booking._id === id);
-                    updated.status = 'confirm';
+                    console.log(updated);
+                    updated.status = 'reject';
                     const newBookings = [updated, ...remaining];
                     setMyBids(newBookings);
                 }

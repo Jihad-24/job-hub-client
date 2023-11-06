@@ -17,7 +17,7 @@ const Login = () => {
         const form = new FormData(e.currentTarget);
         const email = form.get('email');
         const password = form.get('password');
-        console.log(email, password);
+        // console.log(email, password);
 
         // login user
         signIn(email, password)
@@ -47,7 +47,8 @@ const Login = () => {
                 console.log(result.user)
                 const email = result?.user?.email;
                 const displayName = result?.user?.displayName;
-                const user = { email, displayName }
+                const role = 'User';
+                const user = { email, displayName,role }
 
                 fetch('http://localhost:5000/user', {
                     method: "POST",

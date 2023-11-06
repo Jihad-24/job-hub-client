@@ -3,7 +3,7 @@
 
 const MyBidsRow = ({ handleDelete, booking, handleBidConfirm }) => {
     const {_id, jobTitle, email, status,deadline } = booking;
-
+console.log(status);
     return (
         <tr>
             <th>
@@ -24,7 +24,7 @@ const MyBidsRow = ({ handleDelete, booking, handleBidConfirm }) => {
             <td>{deadline}</td>
             <td>
                 {
-                    status === 'confirm' ? <span className="font-bold text-primary">In Progress</span> :
+                    status === 'reject' ? <span className="font-bold text-primary">In Progress</span> :
                         <button onClick={() => handleBidConfirm(_id)} className="btn btn-ghost btn-xs">Pending</button>
                 }
             </td>
