@@ -1,15 +1,10 @@
-import {useLoaderData, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
-import useAuth from "../../hooks/useAuth";
-
 
 const UpdateJob = () => {
-    const { user } = useAuth();
-    const id = useParams();
-    console.log(id);
     const loadedJobs = useLoaderData();
-    const { email, deadline, miniprice, jobtitle, description, maxprice, category} = loadedJobs;
-
+    const { _id, email, deadline, miniprice, jobtitle, description, maxprice, category } = loadedJobs;
+    const navigate = useNavigate();
 
     const handleUpdateJob = event => {
         event.preventDefault();
@@ -26,7 +21,7 @@ const UpdateJob = () => {
         // console.log(updatedJob);
 
         // send data to the server
-        fetch(`http://localhost:5000/mypostedjobs/${id}`, {
+        fetch(`http://localhost:5000/mypostedjobs/${_id}`, {
             method: "PUT",
             headers: {
                 'content-type': 'application/json'
@@ -43,7 +38,7 @@ const UpdateJob = () => {
                         icon: 'success',
                         confirmButtonText: 'Cool'
                     });
-
+                    navigate('/mypostedjobs')
                 }
 
             })
@@ -69,7 +64,7 @@ const UpdateJob = () => {
                             </label>
                             <label className="input-group">
                                 <span className='font-medium'>Title</span>
-                                <input type="text" name='jobtitle' placeholder="Your Job Title" className="input input-bordered w-full" />
+                                <input type="text" name='jobtitle' placeholder="Your Job Title" className="input input-bordered w-full" defaultValue={jobtitle} />
                             </label>
                         </div>
                     </div>
@@ -80,7 +75,7 @@ const UpdateJob = () => {
                             </label>
                             <label className="input-group">
                                 <span className='font-medium'>Deadline</span>
-                                <input type="text" name='deadline' placeholder="Enter Job Deadline" className="input input-bordered w-full" />
+                                <input type="text" name='deadline' placeholder="Enter Job Deadline" className="input input-bordered w-full" defaultValue={deadline} />
                             </label>
                         </div>
                         <div className="form-control md:w-1/2">
@@ -89,7 +84,7 @@ const UpdateJob = () => {
                             </label>
                             <label className="input-group">
                                 <span className='font-medium'>Details</span>
-                                <input type="text" name='description' placeholder="Enter Short description" className="input input-bordered w-full" />
+                                <input type="text" name='description' placeholder="Enter Short description" className="input input-bordered w-full" defaultValue={description} />
                             </label>
                         </div>
                     </div>
@@ -100,7 +95,7 @@ const UpdateJob = () => {
                             </label>
                             <label className="input-group">
                                 <span className='font-medium'>Minimum</span>
-                                <input type="text" name='miniprice' placeholder="Enter Short description" className="input input-bordered w-full" />
+                                <input type="text" name='miniprice' placeholder="Enter Short description" className="input input-bordered w-full" defaultValue={miniprice} />
                             </label>
                         </div>
                         <div className="form-control md:w-1/2">
@@ -110,7 +105,7 @@ const UpdateJob = () => {
                             </label>
                             <label className="input-group">
                                 <span className='font-medium'>Maximum</span>
-                                <input type="text" name='maxprice' placeholder="Enter Maximum price" className="input input-bordered w-full" />
+                                <input type="text" name='maxprice' placeholder="Enter Maximum price" className="input input-bordered w-full" defaultValue={maxprice} />
                             </label>
                         </div>
                     </div>
@@ -121,7 +116,7 @@ const UpdateJob = () => {
                             </label>
                             <label className="input-group">
                                 <span className='font-medium'>Category</span>
-                                <select className="w-full" name="category">
+                                <select className="w-full" name="category" defaultValue={category}>
                                     <option value="Web Development">Web Development</option>
                                     <option value="Digital Marketing">Digital Marketing</option>
                                     <option value="Graphic Design">Graphic Design</option>
