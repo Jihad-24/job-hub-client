@@ -21,10 +21,11 @@ const Register = () => {
         const form = e.target;
         const terms = form.terms.checked;
         const name = form.name.value;
+        const role = form.role.value;
         const email = form.email.value;
         const password = form.password.value;
         const photo = form.photoURL.value;
-        console.log(name, terms, email, password, photo);
+        // console.log(name, terms, email, password, photo,role);
 
         // reset error & success
         setRegisterError('');
@@ -54,7 +55,7 @@ const Register = () => {
             .then(result => {
                 console.log(result.user);
                 setSuccess('User Created Successfully')
-                const user = { name, email, password, photo };
+                const user = { name, email, password, photo, role };
                 fetch('http://localhost:5000/user', {
                     method: "POST",
                     headers: {
@@ -74,8 +75,9 @@ const Register = () => {
                         }
                     })
 
-                // navigate after register
+
                 navigate(location?.state ? location.state : "/");
+
             })
             .catch(error => {
                 setRegisterError(error.message)
@@ -94,7 +96,8 @@ const Register = () => {
                 const email = result?.user?.email;
                 const displayName = result?.user?.displayName;
                 const role = 'User';
-                const user = { email, displayName ,role};
+                const user = { email, displayName, role };
+                console.log(user);
                 fetch('http://localhost:5000/user', {
                     method: "POST",
                     headers: {
@@ -105,7 +108,7 @@ const Register = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.insertedId) {
-                            console.log('User Added in DataBase')
+                            // console.log('User Added in DataBase')
                             // success alert
                             Swal.fire({
                                 icon: 'success',
@@ -114,8 +117,8 @@ const Register = () => {
                         }
                     })
 
-                // navigate after login
                 navigate(location?.state ? location.state : "/");
+
             })
             .catch(error => {
                 // error alert
@@ -187,9 +190,10 @@ const Register = () => {
                     </div>
                     <div className="form-control " data-aos="fade-right">
                         <label className="label">
-                            <span className='label-text'>Your Role</span>
+                            <span className='label-text'>Select Your Role</span>
                         </label>
-                        <select name="role" id="" required>
+                        <select name="role" required className="bg-slate-200 py-2 rounded px-2">
+                            <option value="Click to see Roles">Click to see Roles</option>
                             <option value="Admin">Admin</option>
                             <option value="User">User</option>
                         </select>

@@ -66,6 +66,8 @@ const AuthProviders = ({children}) => {
         }
     }, [user])
 
+
+
     const authInfo = {
         user,
         loading,
@@ -74,6 +76,7 @@ const AuthProviders = ({children}) => {
         signInGoogle,
         setLoading,
         logOut,
+       
     }
 
     return (

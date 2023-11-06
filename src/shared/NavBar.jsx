@@ -6,31 +6,29 @@ import { useEffect, useState } from "react";
 
 
 const NavBar = () => {
-    
-    const { setLoading, user, logOut } = useAuth();
-    const [profilePic, setProfilePic] = useState();
-    const email = user?.email;
+
+    const { user, logOut, setLoading } = useAuth();
     const navigate = useNavigate();
+    const [userData, setuserData] = useState();
+    const userEmail = user?.email;
 
     useEffect(() => {
         setLoading(true)
-        if (email) {
-            fetch(`http://localhost:5000/user/${email}`)
+        if (userEmail) {
+            fetch(`http://localhost:5000/user/${userEmail}`)
                 .then(res => res.json())
                 .then(data => {
-                    setProfilePic(data)
+                    setuserData(data)
                 })
                 .catch(error => {
                     console.log(error.message);
                 })
         }
-    }, [email, setLoading])
-    // console.log(profilePic.photo);
+    }, [userEmail, setLoading])
 
     const handleSignOut = () => {
         logOut()
             .then(result => {
-                // console.log(result.user);
                 if (!result.user) {
                     navigate('/');
                 }
@@ -49,20 +47,27 @@ const NavBar = () => {
     }
 
     const navLinks = <>
-        <li className="font-semibold"><NavLink to={"/"}>Home</NavLink></li>
 
+
+        <li className="font-semibold"><NavLink to={"/"}>Home</NavLink></li>
         {
-            !user && <li className="font-semibold"><NavLink to={"/login"}>Login</NavLink></li>
+            !user && <>
+                <li className="font-semibold"><NavLink to={"/register"}>Register</NavLink></li>
+                <li className="font-semibold"><NavLink to={"/login"}>Login</NavLink></li>
+            </>
         }
-        {
-            !user && <li className="font-semibold"><NavLink to={"/register"}>Register</NavLink></li>
-        }
-        {user && <>
+
+        {user && userData?.role == 'User' && <>
             <li className="font-semibold"><NavLink to="/addjob">Add Job</NavLink></li>
             <li className="font-semibold"><NavLink to="/mypostedjobs">My Jobs</NavLink></li>
             <li className="font-semibold"><NavLink to="/mybids">My Bids</NavLink></li>
-            <li className="font-semibold"><NavLink to="/dashboard">Bid Requests</NavLink></li>
             <li className="font-semibold"><NavLink to="/dashboard">Dashboard</NavLink></li>
+        </>
+        }
+        {user && userData?.role == 'Admin' && <>
+            <li className="font-semibold"><NavLink to={"/admin"}>Home</NavLink></li>
+            <li className="font-semibold"><NavLink to="/bidrequests">Bid Requests</NavLink></li>
+            <li className="font-semibold"><NavLink to="/bidstatus">Bid Status</NavLink></li>
         </>
         }
     </>
@@ -98,21 +103,17 @@ const NavBar = () => {
                 <div className="navbar-end">
                     <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
-                            {/* <img src="https://i.ibb.co/2FngQt8/user.png" alt="" /> */}
-
                             {!user?.photoURL ?
-                                <img src={profilePic && profilePic.photo ? profilePic?.photo : 'https://i.ibb.co/2FngQt8/user.png'} alt="" />
+                                <img src={userData && userData.photo ? userData?.photo : 'https://i.ibb.co/2FngQt8/user.png'} alt="" />
                                 :
                                 <img src={user?.photoURL && user?.photoURL} alt="" />
                             }
-
                         </div>
-
                     </label>
                     <div className="hidden md:block">
                         <Link to={"/profile"}>
                             <p className="px-1 font-medium">
-                                {user && user?.displayName ? user?.displayName : (profilePic && profilePic?.name)}
+                                {user && user?.displayName ? user?.displayName : (userData && userData?.name)}
                             </p>
                         </Link>
                     </div>

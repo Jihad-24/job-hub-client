@@ -22,14 +22,16 @@ const Login = () => {
         // login user
         signIn(email, password)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
                 // success alert
-                Swal.fire({
-                    icon: 'success',
-                    title: 'User Login Successfull'
-                })
-                // navigate after login
+                if (result?.user) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'User Login Successfull'
+                    })
+                }
                 navigate(location?.state ? location.state : "/");
+
             })
             .catch(error => {
                 setLoginError(error.message)
@@ -48,7 +50,8 @@ const Login = () => {
                 const email = result?.user?.email;
                 const displayName = result?.user?.displayName;
                 const role = 'User';
-                const user = { email, displayName,role }
+                const user = { email, displayName, role }
+                console.log(user);
 
                 fetch('http://localhost:5000/user', {
                     method: "POST",
@@ -69,7 +72,7 @@ const Login = () => {
                         }
                     })
 
-                // navigate after login
+
                 navigate(location?.state ? location.state : "/");
             })
             .catch(error => {
@@ -80,7 +83,6 @@ const Login = () => {
                 })
             })
     }
-    console.log(location);
 
     return (
         <div className='pb-24'>

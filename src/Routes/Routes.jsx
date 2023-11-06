@@ -9,6 +9,10 @@ import MyBids from "../pages/Bids/MyBids";
 import AddJob from "../pages/JobRelated/AddJob";
 import MyPostedJobs from "../pages/JobRelated/MyPostedJobs";
 import UpdateJob from "../pages/JobRelated/UpdateJob";
+import AdminLayout from "../layout/AdminLayout";
+import BidStatus from "../components/AdminRelated/BidStatus";
+import BidRequests from "../components/AdminRelated/BidRequests";
+import AdminHome from "../components/AdminRelated/AdminHome";
 
 const router = createBrowserRouter([
   {
@@ -21,26 +25,44 @@ const router = createBrowserRouter([
       },
       {
         path: "/mybids",
-        element:<MyBids></MyBids>,
+        element: <MyBids></MyBids>,
       },
       {
         path: '/addjob',
-        element:<AddJob></AddJob>,
+        element: <AddJob></AddJob>,
       },
       {
         path: '/mypostedjobs',
-        element:<MyPostedJobs></MyPostedJobs>,
+        element: <MyPostedJobs></MyPostedJobs>,
       },
       {
         path: '/updatejob/:id',
         element: <UpdateJob></UpdateJob>,
-        loader: ({params})=>fetch(`http://localhost:5000/mypostedjobs/${params.id}`),
+        loader: ({ params }) => fetch(`http://localhost:5000/mypostedjobs/${params.id}`),
       },
       {
         path: '/jobs/:id',
         element: <JobDetails></JobDetails>,
-        loader: ({params})=>fetch(`http://localhost:5000/jobs/${params.id}`),
+        loader: ({ params }) => fetch(`http://localhost:5000/jobs/${params.id}`),
       },
+    ]
+  },
+  {
+    path: '/admin',
+    element: <AdminLayout></AdminLayout>,
+    children: [
+      {
+        index:true,
+        element: <AdminHome></AdminHome>,
+      },
+      {
+        path: 'bidstatus',
+        element: <BidStatus></BidStatus>,
+      },
+      {
+        path: 'bidrequests',
+        element: <BidRequests></BidRequests>,
+      }
     ]
   },
   {
