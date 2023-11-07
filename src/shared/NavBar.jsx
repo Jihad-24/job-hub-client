@@ -80,7 +80,7 @@ const NavBar = () => {
                     <Link to={"/"}>
                         <div className="hidden md:flex md:items-center md:gap-2">
                             <img src={icon} alt="" />
-                            <p className=" md:font-semibold md:text-2xl">DigitalExchange</p>
+                            <p className=" md:font-semibold md:text-2xl">JobHub</p>
                         </div>
                     </Link>
                 </div>
