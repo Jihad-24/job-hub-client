@@ -10,12 +10,12 @@ const NavBar = () => {
     const { user, logOut, setLoading } = useAuth();
     const navigate = useNavigate();
     const [userData, setuserData] = useState();
-    const userEmail = user?.email;
+    const email = user?.email;
 
     useEffect(() => {
         setLoading(true)
-        if (userEmail) {
-            fetch(`http://localhost:5000/user/${userEmail}`)
+        if (email) {
+            fetch(`http://localhost:5000/user/${email}`)
                 .then(res => res.json())
                 .then(data => {
                     setuserData(data)
@@ -24,7 +24,7 @@ const NavBar = () => {
                     console.log(error.message);
                 })
         }
-    }, [userEmail, setLoading])
+    }, [email, setLoading])
 
     const handleSignOut = () => {
         logOut()
@@ -47,8 +47,6 @@ const NavBar = () => {
     }
 
     const navLinks = <>
-
-
         <li className="font-semibold"><NavLink to={"/"}>Home</NavLink></li>
         {
             !user && <>
@@ -56,18 +54,12 @@ const NavBar = () => {
                 <li className="font-semibold"><NavLink to={"/login"}>Login</NavLink></li>
             </>
         }
-
-        {user && userData?.role == 'User' && <>
+        {user?.email && <>
             <li className="font-semibold"><NavLink to="/addjob">Add Job</NavLink></li>
             <li className="font-semibold"><NavLink to="/mypostedjobs">My Jobs</NavLink></li>
             <li className="font-semibold"><NavLink to="/mybids">My Bids</NavLink></li>
-            <li className="font-semibold"><NavLink to="/dashboard">Dashboard</NavLink></li>
-        </>
-        }
-        {user && userData?.role == 'Admin' && <>
-            <li className="font-semibold"><NavLink to={"/admin"}>Home</NavLink></li>
             <li className="font-semibold"><NavLink to="/bidrequests">Bid Requests</NavLink></li>
-            <li className="font-semibold"><NavLink to="/bidstatus">Bid Status</NavLink></li>
+            <li className="font-semibold"><NavLink to="/dashboard">Dashboard</NavLink></li>
         </>
         }
     </>
@@ -106,7 +98,7 @@ const NavBar = () => {
                             {!user?.photoURL ?
                                 <img src={userData && userData.photo ? userData?.photo : 'https://i.ibb.co/2FngQt8/user.png'} alt="" />
                                 :
-                                <img src={user?.photoURL && user?.photoURL} alt="" />
+                                <img src={user && user?.photoURL ? user?.photoURL : 'https://i.ibb.co/2FngQt8/user.png'} alt="" />
                             }
                         </div>
                     </label>

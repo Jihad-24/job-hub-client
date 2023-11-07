@@ -49,8 +49,7 @@ const Login = () => {
                 console.log(result.user)
                 const email = result?.user?.email;
                 const displayName = result?.user?.displayName;
-                const role = 'User';
-                const user = { email, displayName, role }
+                const user = { email, displayName }
                 console.log(user);
 
                 fetch('http://localhost:5000/user', {

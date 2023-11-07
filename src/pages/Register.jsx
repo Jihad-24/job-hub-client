@@ -21,11 +21,9 @@ const Register = () => {
         const form = e.target;
         const terms = form.terms.checked;
         const name = form.name.value;
-        const role = form.role.value;
         const email = form.email.value;
         const password = form.password.value;
         const photo = form.photoURL.value;
-        // console.log(name, terms, email, password, photo,role);
 
         // reset error & success
         setRegisterError('');
@@ -55,7 +53,7 @@ const Register = () => {
             .then(result => {
                 console.log(result.user);
                 setSuccess('User Created Successfully')
-                const user = { name, email, password, photo, role };
+                const user = { name, email, password, photo };
                 fetch('http://localhost:5000/user', {
                     method: "POST",
                     headers: {
@@ -95,8 +93,8 @@ const Register = () => {
                 console.log(result.user)
                 const email = result?.user?.email;
                 const displayName = result?.user?.displayName;
-                const role = 'User';
-                const user = { email, displayName, role };
+                const photoURL = result?.user?.photoURL;
+                const user = { email, displayName, photoURL };
                 console.log(user);
                 fetch('http://localhost:5000/user', {
                     method: "POST",
@@ -187,16 +185,6 @@ const Register = () => {
                             name="photoURL"
                             placeholder="Enter Your photoURL"
                             className="input input-bordered bg-slate-200" required />
-                    </div>
-                    <div className="form-control " data-aos="fade-right">
-                        <label className="label">
-                            <span className='label-text'>Select Your Role</span>
-                        </label>
-                        <select name="role" required className="bg-slate-200 py-2 rounded px-2">
-                            <option value="Click to see Roles">Click to see Roles</option>
-                            <option value="Admin">Admin</option>
-                            <option value="User">User</option>
-                        </select>
                     </div>
                     <div className="flex" >
                         <input type="checkbox" name="terms" id="terms" />
