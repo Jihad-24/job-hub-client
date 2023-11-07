@@ -1,4 +1,4 @@
-import logo from '../assets/react.svg';
+import logo from '../../public/react.svg';
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaPeriscope } from 'react-icons/fa';
 import { AiOutlinePhone } from 'react-icons/ai';
 import { MdOutlineWatchLater } from 'react-icons/md';
@@ -6,7 +6,7 @@ import { MdOutlineWatchLater } from 'react-icons/md';
 const Footer = () => {
     return (
         <footer className="">
-            <div className="footer p-10 bg-[#252525] text-white text-base-content">
+            <div className="footer p-10 bg-[#252525] text-white">
                 <aside>
                     <img src={logo} alt="" />
                     <p>JobHub Ltd.<br />JobHub is dedicated to constant Giving  knowledge <br /> about  Wide Range of Jobs.</p>

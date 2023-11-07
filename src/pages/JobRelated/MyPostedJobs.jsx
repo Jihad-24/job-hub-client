@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 
 const MyPostedJobs = () => {
@@ -61,6 +62,10 @@ const MyPostedJobs = () => {
 
     return (
         <div className="py-10">
+            <Helmet>
+                <title>JobHub | My Posted Job</title>
+                <link rel="shortcut icon" href="../../../public/my_jobs.png" type="image/x-icon"/>
+            </Helmet>
             {
                 isLoading ?
                     <div>Loading...</div>

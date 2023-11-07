@@ -11,30 +11,30 @@ const MyBids = () => {
     const [myBids, setMyBids] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
-    const handleSortByCustomOrder = async () => {
-        setIsLoading(true);
-        try {
-            const response = await fetch(`http://localhost:5000/mybids`);
-            if (response.ok) {
-                const data = await response.json();
-                const myJobs = data?.filter(item => item.email === userEmail);
-                myJobs.sort((a, b) => {
-                    const customStatusOrder = ['in progress', 'complete', 'reject'];
-                    return customStatusOrder.indexOf(a.status) - customStatusOrder.indexOf(b.status);
-                });
-                setMyBids(myJobs);
-            } else {
-                console.error('Failed to fetch and sort data');
-            }
-        } catch (error) {
-            console.error('Error while fetching data:', error);
-        } finally {
-            setIsLoading(false);
-        }
-    };
-
     useEffect(() => {
-        handleSortByCustomOrder();
+        const fetchData = async () => {
+            setIsLoading(true);
+            try {
+                const response = await fetch('http://localhost:5000/mybids');
+                if (response.ok) {
+                    const data = await response.json();
+                    const myJobs = data?.filter(item => item.email === userEmail);
+                    myJobs.sort((a, b) => {
+                        const customStatusOrder = ['in progress', 'complete', 'reject'];
+                        return customStatusOrder.indexOf(a.status) - customStatusOrder.indexOf(b.status);
+                    });
+                    setMyBids(myJobs);
+                } else {
+                    console.error('Failed to fetch and sort data');
+                }
+            } catch (error) {
+                console.error('Error while fetching data:', error);
+            } finally {
+                setIsLoading(false);
+            }
+        };
+
+        fetchData();
     }, [userEmail]);
 
 
@@ -97,7 +97,7 @@ const MyBids = () => {
         <div>
             <Helmet>
                 <title>JobHub | My Bids</title>
-                <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+                <link rel="shortcut icon" href="../../../public/my_bid.png" type="image/x-icon"/>
             </Helmet>
             {
                 isLoading ?

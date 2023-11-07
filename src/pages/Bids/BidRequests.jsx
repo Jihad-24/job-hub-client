@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import BidReqRow from "./BidReqRow";
+import { Helmet } from "react-helmet";
 
 
 const BidRequests = () => {
@@ -71,6 +72,10 @@ const BidRequests = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>JobHub | Bid Requests</title>
+                <link rel="shortcut icon" href="../../../public/bid_requests.png" type="image/x-icon"/>
+            </Helmet>
             {
                 isLoading ?
                     <div>Loading...</div>

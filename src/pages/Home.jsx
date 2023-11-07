@@ -10,7 +10,7 @@ const Home = () => {
         <div className="px-3 py-1">
             <Helmet>
                 <title>JobHub | Home</title>
-                <link rel="icon" type="image/svg+xml" href="../assets/react.svg" />
+                <link rel="shortcut icon" href="../../public/react.svg" type="image/x-icon"/>
             </Helmet>
             <Banner></Banner>
             <CategoryTabs></CategoryTabs>
