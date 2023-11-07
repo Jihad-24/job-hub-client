@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import MyBidsRow from "./MyBidsRow";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet";
 
 
 const MyBids = () => {
@@ -10,20 +11,32 @@ const MyBids = () => {
     const [myBids, setMyBids] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
 
+    const handleSortByCustomOrder = async () => {
+        setIsLoading(true);
+        try {
+            const response = await fetch(`http://localhost:5000/mybids`);
+            if (response.ok) {
+                const data = await response.json();
+                const myJobs = data?.filter(item => item.email === userEmail);
+                myJobs.sort((a, b) => {
+                    const customStatusOrder = ['in progress', 'complete', 'reject'];
+                    return customStatusOrder.indexOf(a.status) - customStatusOrder.indexOf(b.status);
+                });
+                setMyBids(myJobs);
+            } else {
+                console.error('Failed to fetch and sort data');
+            }
+        } catch (error) {
+            console.error('Error while fetching data:', error);
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     useEffect(() => {
-        setIsLoading(true);
-        fetch(`http://localhost:5000/mybids`)
-            .then(res => res.json())
-            .then(data => {
-                const myJobs = data?.filter(item => item.email === userEmail);
-                setMyBids(myJobs);
-                setIsLoading(false);
-            })
-            .catch(eror => {
-                console.log(eror.message);
-            })
-    }, [userEmail])
+        handleSortByCustomOrder();
+    }, [userEmail]);
+
 
     const handleDelete = (id) => {
         // console.log(id);
@@ -82,6 +95,10 @@ const MyBids = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>JobHub | My Bids</title>
+                <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+            </Helmet>
             {
                 isLoading ?
                     <div>Loading...</div>
