@@ -1,9 +1,9 @@
 /* eslint-disable react/prop-types */
 
 
-const MyBidsRow = ({ handleDelete, booking }) => {
+const MyBidsRow = ({ handleDelete, booking,handleBidComplete }) => {
     const {_id, jobTitle, email, status,deadline } = booking;
-console.log(status);
+// console.log(status);
     return (
         <tr>
             <th>
@@ -25,16 +25,20 @@ console.log(status);
             <td>
             {
                     status === 'reject' ? (
-                        <span className="font-bold text-primary">canceled</span>
+                        <span className="font-bold text-primary">Canceled</span>
+                    ) : status === 'complete' ? (
+                        <span className="font-bold text-primary">Complete</span>
                     ) : status === 'in progress' ? (
-                        <span className="font-bold text-primary">in progress</span>
+                        <span className="font-bold text-primary">In Progress</span>
                     ) : <span className="font-bold text-primary">Pending</span>
                 }
             </td>
             <th>
-                {
-                    status === 'in progress' && <button>complete</button>
-               }
+                 {
+                    status === 'in progress'? (
+                        <button className="btn btn-xs" onClick={()=>handleBidComplete(_id)}>complete</button>
+                    ) : ''
+                }
             </th>
         </tr>
     );
