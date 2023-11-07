@@ -30,9 +30,9 @@ const CategoryTabs = () => {
     }, [])
 
     return (
-        <Tabs selectedIndex={activeTab} onSelect={tabIndex => setActiveTab(tabIndex)}>
-            <TabList className="pb-3 flex space-x-2 rounded">
-                <Tab className={`px-8 py-2 cursor-pointer rounded 
+        <Tabs className="my-12" selectedIndex={activeTab} onSelect={tabIndex => setActiveTab(tabIndex)}>
+            <TabList className="mb-6 flex flex-col md:flex-row space-x-2 space-y-2 rounded justify-center items-center">
+                <Tab className={`ml-2 px-8 py-2 mt-2 cursor-pointer rounded 
                 ${activeTab === 0 ? '' : 'bg-red-500 text-white'}`}>
                     Web Development
                 </Tab>

@@ -18,9 +18,7 @@ const MyBidsRow = ({ handleDelete, booking,handleBidComplete }) => {
                     </div>
                 </div>
             </td>
-            <td>
-                {email}
-            </td>
+            <td> {email}</td>
             <td>{deadline}</td>
             <td>
             {
