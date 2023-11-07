@@ -57,13 +57,13 @@ const MyBids = () => {
         })
     }
 
-    const handleBidConfirm = id => {
+    const handleBidComplete = id => {
         fetch(`http://localhost:5000/mybids/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
             },
-            body: JSON.stringify({ status: 'pending' })
+            body: JSON.stringify({ status: 'complete' })
         })
             .then(res => res.json())
             .then(data => {
@@ -73,7 +73,7 @@ const MyBids = () => {
                     const remaining = myBids.filter(booking => booking._id !== id);
                     const updated = myBids.find(booking => booking._id === id);
                     console.log(updated);
-                    updated.status = 'reject';
+                    updated.status = 'complete';
                     const newBookings = [updated, ...remaining];
                     setMyBids(newBookings);
                 }
@@ -108,7 +108,7 @@ const MyBids = () => {
                                             key={booking._id}
                                             booking={booking}
                                             handleDelete={handleDelete}
-                                            handleBidConfirm={handleBidConfirm}
+                                            handleBidComplete={handleBidComplete}
                                         ></MyBidsRow>)
                                     }
                                 </tbody>

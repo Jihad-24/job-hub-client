@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 
-const MyBidsRow = ({ handleDelete, booking, handleBidConfirm }) => {
+const MyBidsRow = ({ handleDelete, booking }) => {
     const {_id, jobTitle, email, status,deadline } = booking;
 console.log(status);
     return (
@@ -23,9 +23,12 @@ console.log(status);
             </td>
             <td>{deadline}</td>
             <td>
-                {
-                    status === 'reject' ? <span className="font-bold text-primary">In Progress</span> :
-                        <button onClick={() => handleBidConfirm(_id)} className="btn btn-ghost btn-xs">Pending</button>
+            {
+                    status === 'reject' ? (
+                        <span className="font-bold text-primary">canceled</span>
+                    ) : status === 'in progress' ? (
+                        <span className="font-bold text-primary">in progress</span>
+                    ) : <span className="font-bold text-primary">Pending</span>
                 }
             </td>
             <th>
