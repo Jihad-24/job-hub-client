@@ -47,11 +47,11 @@ const CategoryTabs = () => {
             </TabList>
 
             <TabPanel >
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" >
                     {webDevelopmentJobs.map((job) => (
                         <div key={job._id}>
                             <div className="card card-compact bg-base-100 shadow-xl">
-                                <figure><img className='h-48 w-full' src={job.image} alt="Shoes" /></figure>
+                                <figure><img data-aos="fade-up" className='h-48 w-full' src={job.image} alt="Shoes" /></figure>
                                 <div className="card-body">
                                     <h2 className="card-title">{job.job_title}</h2>
                                     <p>Price Range: {job.price_range}</p>
