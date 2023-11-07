@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
+import { Helmet } from "react-helmet";
 
 
 const JobDetails = () => {
@@ -75,6 +76,10 @@ const JobDetails = () => {
 
     return (
         <div className="">
+           <Helmet>
+                <title>JobHub | Job Details</title>
+                <link rel="shortcut icon" href="../../../public/add_job.png" type="image/x-icon"/>
+            </Helmet>
             <div className="mx-auto flex justify-around">
                 <div className="card w-96 my-4 card-compact">
                     <figure><img className='w-full' src={cardData?.image} alt="Shoes" /></figure>

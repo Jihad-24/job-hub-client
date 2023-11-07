@@ -1,3 +1,4 @@
+import { Helmet } from "react-helmet";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 
@@ -45,6 +46,10 @@ const UpdateJob = () => {
     }
     return (
         <div>
+            <Helmet>
+                <title>JobHub | Update Job</title>
+                <link rel="shortcut icon" href="../../../public/add_job.png" type="image/x-icon" />
+            </Helmet>
             <div className='md:py-20'>
                 <h1 className='text-center font-extrabold mb-10 text-purple-500 text-2xl md:text-4xl'>Update Job</h1>
                 <form onSubmit={handleUpdateJob}>
