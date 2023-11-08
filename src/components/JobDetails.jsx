@@ -3,39 +3,43 @@ import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import { Helmet } from "react-helmet";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const JobDetails = () => {
-    const id = useParams();
+    const { id } = useParams();
     const { user } = useAuth();
     const [btnBlock, setBtnBlock] = useState(null);
     const [cardData, setCardData] = useState(null);
     const navigate = useNavigate();
     const [clickedId, setClickedId] = useState(null);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        fetch('http://localhost:5000/jobs')
-            .then(res => res.json())
-            .then(data => {
-                // console.log(data);
-                const foundCard = data?.find(card => card?._id === id.id);
+        axiosSecure.get(`http://localhost:5000/jobs/${id}`)
+            .then((response) => {
+                const foundCard = response.data;
+                // console.log(foundCard);
                 setCardData(foundCard);
             })
-            .catch(error => {
+            .catch((error) => {
                 console.error('Error fetching job data', error);
             });
-    }, [id])
+    }, [id, axiosSecure]);
 
     useEffect(() => {
-        fetch(`http://localhost:5000/mybids`)
-            .then(res => res.json())
-            .then(data => {
-                const button = data?.find(item => item.email === user?.email);
-                const buttonid = data?.find(item => item.job_id === cardData?._id);
+        axiosSecure.get('http://localhost:5000/mybids')
+            .then((response) => {
+                const data = response.data;
+                const button = data?.find((item) => item.email === user?.email);
+                const buttonid = data?.find((item) => item.job_id === cardData?._id);
                 setBtnBlock(button);
                 setClickedId(buttonid);
             })
-    }, [user, cardData])
+            .catch((error) => {
+                console.error('Error while fetching data:', error);
+            });
+    }, [user, cardData, axiosSecure]);
 
     const handleAddBid = event => {
         event.preventDefault();
@@ -43,11 +47,12 @@ const JobDetails = () => {
         const email = form.email.value;
         const buyer = form.buyer.value;
         const price = form.price.value;
+        const status = 'pending';
         const job_id = cardData?._id;
         const jobTitle = cardData?.job_title;
         const deadline = form.deadline.value;
 
-        const newProduct = { jobTitle, email, buyer, price, deadline, job_id }
+        const newProduct = { jobTitle, email, buyer, price, deadline, job_id ,status}
         // console.log(newProduct);
 
         // send data to the server
@@ -76,9 +81,9 @@ const JobDetails = () => {
 
     return (
         <div className="">
-           <Helmet>
+            <Helmet>
                 <title>JobHub | Job Details</title>
-                <link rel="shortcut icon" href="../../../public/add_job.png" type="image/x-icon"/>
+                <link rel="shortcut icon" href="../../../public/add_job.png" type="image/x-icon" />
             </Helmet>
             <div className="mx-auto flex justify-around">
                 <div className="card w-96 my-4 card-compact">
@@ -130,7 +135,7 @@ const JobDetails = () => {
                             </label>
                             <label className="input-group">
                                 <span className='font-medium'>Date</span>
-                                <input type="text" name='deadline' defaultValue={cardData?.deadline} className="input input-bordered w-full" required />
+                                <input type="date" name='deadline' defaultValue={cardData?.deadline} className="input input-bordered w-full" required />
                             </label>
                         </div>
 

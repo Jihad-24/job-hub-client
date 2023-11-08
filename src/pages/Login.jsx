@@ -46,11 +46,11 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         signInGoogle()
             .then(result => {
-                console.log(result.user)
+                // console.log(result.user)
                 const email = result?.user?.email;
                 const displayName = result?.user?.displayName;
                 const user = { email, displayName }
-                console.log(user);
+                // console.log(user);
 
                 fetch('http://localhost:5000/user', {
                     method: "POST",
@@ -61,6 +61,7 @@ const Login = () => {
                 })
                     .then(res => res.json())
                     .then(data => {
+                        console.log(data);
                         if (data.insertedId) {
                             console.log('User Added in DataBase')
                             // success alert

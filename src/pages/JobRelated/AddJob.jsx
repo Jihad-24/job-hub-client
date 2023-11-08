@@ -83,7 +83,7 @@ const AddJob = () => {
                             </label>
                             <label className="input-group">
                                 <span className='font-medium'>Deadline</span>
-                                <input type="text" name='deadline' placeholder="Enter Job Deadline" className="input input-bordered w-full" />
+                                <input type="date" name='deadline' placeholder="Enter Job Deadline" className="input input-bordered w-full" />
                             </label>
                         </div>
                         <div className="form-control md:w-1/2">

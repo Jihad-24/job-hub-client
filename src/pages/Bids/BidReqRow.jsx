@@ -26,12 +26,12 @@ const BidReqRow = ({ Bid, handleBidReject, handleBidAccept }) => {
             <td>
                 {
                     status === 'reject' ? (
-                        <span className="font-bold text-primary">Rejected</span>
+                        <span className="font-bold text-primary">Canceled</span>
                     ) : status === 'complete' ? (
-                        <span className="font-bold text-primary">Completed</span>
+                        <span className="font-bold text-primary">Complete</span>
                     ) : status === 'in progress' ? (
                         <span className="font-bold text-primary">In Progress</span>
-                    ) : <span className="font-bold text-primary">Pending</span>
+                    ) : (status === 'pending' && <span className="font-bold text-primary">Pending</span>)
                 }
 
             </td>
@@ -39,13 +39,13 @@ const BidReqRow = ({ Bid, handleBidReject, handleBidAccept }) => {
                 {
                     status === 'in progress' || status === 'reject' || status === 'complete' ? (
                         <ProgressBar
-                        filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
+                            filledBackground="linear-gradient(to right, #fefb72, #f0bb31)"
                             percent={
                                 status === 'in progress' ? 50 :
-                                status === 'reject' ? 0 :
-                                status === 'complete' ? 100 : 0
-                        }
-                      />
+                                    status === 'reject' ? 0 :
+                                        status === 'complete' ? 100 : 0
+                            }
+                        />
                     ) : (
                         <div className="flex flex-col gap-2">
                             <button onClick={() => handleBidAccept(_id)} className="btn btn-xs">Accept</button>

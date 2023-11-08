@@ -1,8 +1,8 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css';
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 const CategoryTabs = () => {
 
@@ -10,10 +10,11 @@ const CategoryTabs = () => {
     const [digitalMarketingJobs, setDigitalMarketingJobs] = useState([]);
     const [graphicDesignJobs, setGraphicDesignJobs] = useState([]);
     const [activeTab, setActiveTab] = useState(0);
+    const axiosSecure = useAxiosSecure();
 
 
     useEffect(() => {
-        axios.get('http://localhost:5000/jobs')
+        axiosSecure.get('http://localhost:5000/jobs')
             .then(res => {
                 const jobData = res.data;
                 const webDevelopmentData = jobData.filter(job => job.category === "Web Development");

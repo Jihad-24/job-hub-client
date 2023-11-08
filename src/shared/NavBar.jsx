@@ -42,7 +42,7 @@ const NavBar = () => {
         // success alert
         Swal.fire({
             icon: 'success',
-            title: 'User LogOut Successfull'
+            title: 'Sign Out Successfull'
         })
     }
 

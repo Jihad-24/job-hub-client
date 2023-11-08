@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 import { Helmet } from "react-helmet";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const MyPostedJobs = () => {
@@ -10,21 +11,26 @@ const MyPostedJobs = () => {
     const userEmail = user?.email;
     const [myJobs, setMyJobs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const axiosSecure = useAxiosSecure();
    
 
     useEffect(() => {
         setIsLoading(true);
-        fetch('http://localhost:5000/mypostedjobs')
-            .then(res => res.json())
-            .then(data => {
-                const jobs = data?.filter(item => item.email === userEmail);
+    
+        axiosSecure.get('http://localhost:5000/mypostedjobs')
+            .then((response) => {
+                const data = response.data;
+                const jobs = data?.filter((item) => item.email === userEmail);
                 setMyJobs(jobs);
+            })
+            .catch((error) => {
+                console.log(error.message);
+            })
+            .finally(() => {
                 setIsLoading(false);
-            })
-            .catch(eror => {
-                console.log(eror.message);
-            })
-    }, [userEmail])
+            });
+    }, [userEmail,axiosSecure]);
+    
 
     const handleDelete = (id) => {
         // console.log(id);

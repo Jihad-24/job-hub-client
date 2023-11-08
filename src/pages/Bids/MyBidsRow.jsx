@@ -23,12 +23,12 @@ const MyBidsRow = ({ handleDelete, booking,handleBidComplete }) => {
             <td>
             {
                     status === 'reject' ? (
-                        <span className="font-bold text-primary">Canceled</span>
+                        <span className="font-bold text-primary">Rejected</span>
                     ) : status === 'complete' ? (
                         <span className="font-bold text-primary">Complete</span>
                     ) : status === 'in progress' ? (
                         <span className="font-bold text-primary">In Progress</span>
-                    ) : <span className="font-bold text-primary">Pending</span>
+                    ) : (status === 'pending' && <span className="font-bold text-primary">Pending</span>)
                 }
             </td>
             <th>
