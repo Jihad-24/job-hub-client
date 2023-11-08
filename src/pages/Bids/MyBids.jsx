@@ -98,7 +98,7 @@ const MyBids = () => {
         <div>
             <Helmet>
                 <title>JobHub | My Bids</title>
-                <link rel="shortcut icon" href="../../../public/my_bid.png" type="image/x-icon" />
+                <link rel="shortcut icon" href="../../../public/icons/my_bid.png" type="image/x-icon" />
             </Helmet>
             {
                 isLoading ?

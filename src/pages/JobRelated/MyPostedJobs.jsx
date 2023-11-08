@@ -12,11 +12,11 @@ const MyPostedJobs = () => {
     const [myJobs, setMyJobs] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
     const axiosSecure = useAxiosSecure();
-   
+
 
     useEffect(() => {
         setIsLoading(true);
-    
+
         axiosSecure.get('http://localhost:5000/mypostedjobs')
             .then((response) => {
                 const data = response.data;
@@ -29,8 +29,8 @@ const MyPostedJobs = () => {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [userEmail,axiosSecure]);
-    
+    }, [userEmail, axiosSecure]);
+
 
     const handleDelete = (id) => {
         // console.log(id);
@@ -64,13 +64,13 @@ const MyPostedJobs = () => {
         })
     }
 
-   
+
 
     return (
         <div className="py-10">
             <Helmet>
                 <title>JobHub | My Posted Job</title>
-                <link rel="shortcut icon" href="../../../public/my_jobs.png" type="image/x-icon"/>
+                <link rel="shortcut icon" href="../../../public/icons/my_jobs.png" type="image/x-icon" />
             </Helmet>
             {
                 isLoading ?
@@ -83,16 +83,16 @@ const MyPostedJobs = () => {
                                     <div key={job._id}>
                                         <div className="card card-compact bg-base-100 shadow-xl">
                                             <div className="card-body">
-                                                <h2 className="card-title">Job Title: {job.jobtitle}</h2>
-                                                <h3>Category: {job.category}</h3>
-                                                <h3>Email: {job.email}</h3>
-                                                <p>Minimum price: {'$' + job.miniprice}</p>
-                                                <p>Maximum price: {'$' + job.maxprice}</p>
-                                                <p>Deadline: {job.deadline}</p>
-                                                <p>Description: {job.description}</p>
+                                                <h2 className="card-title" data-aos="fade-right">Job Title: {job.jobtitle}</h2>
+                                                <h3 data-aos="fade-left">Category: {job.category}</h3>
+                                                <h3 data-aos="fade-right">Email: {job.email}</h3>
+                                                <p data-aos="fade-left">Minimum price: {'$' + job.miniprice}</p>
+                                                <p data-aos="fade-right">Maximum price: {'$' + job.maxprice}</p>
+                                                <p data-aos="fade-left">Deadline: {job.deadline}</p>
+                                                <p data-aos="fade-right">Description: {job.description}</p>
                                                 <div className="card-actions justify-center">
-                                                    <Link to={`/updatejob/${job._id}`} className="btn btn-primary">Update</Link>
-                                                    <button onClick={()=>handleDelete(job._id)} className="btn btn-secondary">Delete</button>
+                                                    <Link to={`/updatejob/${job._id}`} className="btn btn-primary" data-aos="fade-up">Update</Link>
+                                                    <button onClick={() => handleDelete(job._id)} className="btn btn-secondary" data-aos="fade-up">Delete</button>
                                                 </div>
                                             </div>
                                         </div>

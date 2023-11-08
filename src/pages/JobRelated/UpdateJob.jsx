@@ -48,7 +48,7 @@ const UpdateJob = () => {
         <div>
             <Helmet>
                 <title>JobHub | Update Job</title>
-                <link rel="shortcut icon" href="../../../public/add_job.png" type="image/x-icon" />
+                <link rel="shortcut icon" href="../../../public/icons/add_job.png" type="image/x-icon" />
             </Helmet>
             <div className='md:py-20'>
                 <h1 className='text-center font-extrabold mb-10 text-purple-500 text-2xl md:text-4xl'>Update Job</h1>

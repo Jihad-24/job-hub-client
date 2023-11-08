@@ -52,7 +52,7 @@ const JobDetails = () => {
         const jobTitle = cardData?.job_title;
         const deadline = form.deadline.value;
 
-        const newProduct = { jobTitle, email, buyer, price, deadline, job_id ,status}
+        const newProduct = { jobTitle, email, buyer, price, deadline, job_id, status }
         // console.log(newProduct);
 
         // send data to the server
@@ -83,16 +83,16 @@ const JobDetails = () => {
         <div className="">
             <Helmet>
                 <title>JobHub | Job Details</title>
-                <link rel="shortcut icon" href="../../../public/add_job.png" type="image/x-icon" />
+                <link rel="shortcut icon" href="../../../public/icons/add_job.png" type="image/x-icon" />
             </Helmet>
             <div className="mx-auto flex justify-around">
                 <div className="card w-96 my-4 card-compact">
-                    <figure><img className='w-full' src={cardData?.image} alt="Shoes" /></figure>
+                    <figure><img className='w-full' src={cardData?.image} alt="Shoes" data-aos="fade-up" /></figure>
                     <div className="card-body">
-                        <h2 className="card-title">{cardData?.job_title}</h2>
-                        <p>Price Range: {cardData?.price_range}</p>
-                        <p>Deadline: {cardData?.deadline}</p>
-                        <p>Description: {cardData?.short_description}</p>
+                        <h2 className="card-title" data-aos="fade-left">{cardData?.job_title}</h2>
+                        <p data-aos="fade-right">Price Range: {cardData?.price_range}</p>
+                        <p data-aos="fade-left">Deadline: {cardData?.deadline}</p>
+                        <p data-aos="fade-right">Description: {cardData?.short_description}</p>
                     </div>
                 </div>
             </div>

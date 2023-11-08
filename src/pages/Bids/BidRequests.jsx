@@ -26,7 +26,7 @@ const BidRequests = () => {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [userEmail,axiosSecure]);
+    }, [userEmail, axiosSecure]);
 
 
     const handleBidReject = id => {
@@ -79,7 +79,7 @@ const BidRequests = () => {
         <div>
             <Helmet>
                 <title>JobHub | Bid Requests</title>
-                <link rel="shortcut icon" href="../../../public/bid_requests.png" type="image/x-icon" />
+                <link rel="shortcut icon" href="../../../public/icons/bid_requests.png" type="image/x-icon" />
             </Helmet>
             {
                 isLoading ?

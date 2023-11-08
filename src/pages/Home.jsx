@@ -10,13 +10,13 @@ const Home = () => {
         <div className="px-3 py-1">
             <Helmet>
                 <title>JobHub | Home</title>
-                <link rel="shortcut icon" href="../../public/react.svg" type="image/x-icon"/>
+                <link rel="shortcut icon" href="../../public/icons/react.svg" type="image/x-icon" />
             </Helmet>
             <Banner></Banner>
             <CategoryTabs></CategoryTabs>
             <div className="mb-10">
                 <div >
-                    <div className="md:ml-16 lg:ml-0">
+                    <div className="md:ml-16 lg:ml-0" data-aos="fade-right">
                         <h1 className="text-4xl font-bold pb-14">Start From Today <br /> and <span className="italic text-[#263077]"> Bid in Your <br />Choosing Jobs</span> <br />
                             <span className="border-b-8 border-[#263077] pt-4  w-16 h-2 absolute"></span>
                         </h1>
@@ -25,7 +25,7 @@ const Home = () => {
                 <StartToday></StartToday>
             </div>
             <div className="mb-16">
-                <div className="text-center">
+                <div className="text-center" data-aos="fade-up">
                     <h1 className="font-extrabold text-5xl text-center pb-14">Find us on the <span className="text-[#263077] italic" data-aos="fade-down">Business Listing Websites</span>
                         <br />
                         <span className="border-b-8 border-[#263077] pt-6  md:w-20 h-2 absolute" ></span></h1>
