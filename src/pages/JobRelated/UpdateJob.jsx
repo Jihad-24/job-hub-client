@@ -31,7 +31,7 @@ const UpdateJob = () => {
         })
             .then(res => res.json())
             .then(data => {
-                // console.log(data);
+                console.log(data);
                 if (data.modifiedCount > 0) {
                     Swal.fire({
                         title: 'Success!',
@@ -48,9 +48,9 @@ const UpdateJob = () => {
         <div>
             <Helmet>
                 <title>JobHub | Update Job</title>
-                <link rel="shortcut icon" href="../../../public/icons/add_job.png" type="image/x-icon" />
+                <link rel="shortcut icon" href="../../../public/add_job.png" type="image/x-icon" />
             </Helmet>
-            <div className='md:py-20 py-10 px-3'>
+            <div className='md:py-20'>
                 <h1 className='text-center font-extrabold mb-10 text-purple-500 text-2xl md:text-4xl'>Update Job</h1>
                 <form onSubmit={handleUpdateJob}>
                     <div className='md:flex gap-6 justify-center mb-8'>

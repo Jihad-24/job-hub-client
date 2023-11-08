@@ -10,7 +10,11 @@ const BidReqRow = ({ Bid, handleBidReject, handleBidAccept }) => {
     return (
         <tr>
             <th>
-                {jobTitle}
+                <div className="avatar">
+                    <div className="rounded w-24 h-24">
+                        {jobTitle}
+                    </div>
+                </div>
             </th>
             <td>
                 {email}

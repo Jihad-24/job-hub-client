@@ -3,7 +3,7 @@ import MyBidsRow from "./MyBidsRow";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import { Helmet } from "react-helmet";
-import axiosInstance from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const MyBids = () => {
@@ -11,13 +11,14 @@ const MyBids = () => {
     const userEmail = user?.email;
     const [myBids, setMyBids] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const axiosSecure = useAxiosSecure();
 
 
     useEffect(() => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const response = await axiosInstance.get('/mybids');
+                const response = await axiosSecure.get('http://localhost:5000/mybids');
                 const data = await response.data;
                 // console.log(data);
                 const myJobs = data?.filter(item => item.email === userEmail);
@@ -35,7 +36,7 @@ const MyBids = () => {
         };
 
         fetchData();
-    }, [userEmail]);
+    }, [userEmail, axiosSecure]);
 
 
     const handleDelete = (id) => {
@@ -94,10 +95,10 @@ const MyBids = () => {
     }
 
     return (
-        <div className="py-10">
+        <div>
             <Helmet>
                 <title>JobHub | My Bids</title>
-                <link rel="shortcut icon" href="../../../public/icons/my_bid.png" type="image/x-icon" />
+                <link rel="shortcut icon" href="../../../public/my_bid.png" type="image/x-icon" />
             </Helmet>
             {
                 isLoading ?

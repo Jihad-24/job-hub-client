@@ -3,7 +3,6 @@ import { useState } from "react";
 import Swal from 'sweetalert2';
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import useAuth from '../hooks/useAuth';
-import useToken from "../hooks/useToken";
 
 const Login = () => {
     const { signIn, signInGoogle } = useAuth();
@@ -11,16 +10,6 @@ const Login = () => {
     const location = useLocation();
     const [loginError, setLoginError] = useState('');
     const [showPassword, setShowPassword] = useState(false);
-
-    const [userEmail, setUserEmail] = useState(null);
-    const [token] = useToken(userEmail)
-
-    const from = location?.state ? location.state : "/";
-
-
-    if (token) {
-        navigate(from);
-    }
 
     const handleLogin = e => {
         e.preventDefault();
@@ -33,13 +22,9 @@ const Login = () => {
         // login user
         signIn(email, password)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
                 // success alert
-                // console.log(result)
                 if (result?.user) {
-
-                    setUserEmail(result.user.email)
-
                     Swal.fire({
                         icon: 'success',
                         title: 'User Login Successfull'
@@ -61,7 +46,34 @@ const Login = () => {
     const handleGoogleSignIn = () => {
         signInGoogle()
             .then(result => {
-                setUserEmail(result.user.email)
+                // console.log(result.user)
+                const email = result?.user?.email;
+                const displayName = result?.user?.displayName;
+                const user = { email, displayName }
+                // console.log(user);
+
+                fetch('http://localhost:5000/user', {
+                    method: "POST",
+                    headers: {
+                        'content-type': 'application/json'
+                    },
+                    body: JSON.stringify(user)
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        console.log(data);
+                        if (data.insertedId) {
+                            console.log('User Added in DataBase')
+                            // success alert
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'User Login Successfull'
+                            })
+                        }
+                    })
+
+
+                navigate(location?.state ? location.state : "/");
             })
             .catch(error => {
                 // error alert

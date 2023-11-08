@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import BidReqRow from "./BidReqRow";
 import { Helmet } from "react-helmet";
-import axiosInstance from "../../hooks/useAxiosSecure";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const BidRequests = () => {
@@ -10,11 +10,12 @@ const BidRequests = () => {
     const userEmail = user?.email;
     const [myBids, setMyBids] = useState(null);
     const [isLoading, setIsLoading] = useState(false);
+    const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
         setIsLoading(true);
 
-        axiosInstance.get('/mybids')
+        axiosSecure.get('http://localhost:5000/mybids')
             .then((response) => {
                 const myJobs = response.data?.filter((item) => item.email === userEmail);
                 setMyBids(myJobs);
@@ -25,7 +26,7 @@ const BidRequests = () => {
             .finally(() => {
                 setIsLoading(false);
             });
-    }, [userEmail]);
+    }, [userEmail,axiosSecure]);
 
 
     const handleBidReject = id => {
@@ -38,7 +39,7 @@ const BidRequests = () => {
         })
             .then(res => res.json())
             .then(data => {
-                // console.log(data);
+                console.log(data);
                 if (data.modifiedCount > 0) {
                     // update state
                     const remaining = myBids.filter(booking => booking._id !== id);
@@ -75,10 +76,10 @@ const BidRequests = () => {
     }
 
     return (
-        <div className="py-10">
+        <div>
             <Helmet>
                 <title>JobHub | Bid Requests</title>
-                <link rel="shortcut icon" href="../../../public/icons/bid_requests.png" type="image/x-icon" />
+                <link rel="shortcut icon" href="../../../public/bid_requests.png" type="image/x-icon" />
             </Helmet>
             {
                 isLoading ?

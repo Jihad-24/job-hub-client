@@ -10,13 +10,13 @@ const Home = () => {
         <div className="px-3 py-1">
             <Helmet>
                 <title>JobHub | Home</title>
-                <link rel="shortcut icon" href="../../public/icons/react.svg" type="image/x-icon"/>
+                <link rel="shortcut icon" href="../../public/react.svg" type="image/x-icon"/>
             </Helmet>
             <Banner></Banner>
             <CategoryTabs></CategoryTabs>
             <div className="mb-10">
                 <div >
-                    <div className="md:ml-16 lg:ml-0" data-aos="fade-left">
+                    <div className="md:ml-16 lg:ml-0">
                         <h1 className="text-4xl font-bold pb-14">Start From Today <br /> and <span className="italic text-[#263077]"> Bid in Your <br />Choosing Jobs</span> <br />
                             <span className="border-b-8 border-[#263077] pt-4  w-16 h-2 absolute"></span>
                         </h1>
@@ -26,10 +26,10 @@ const Home = () => {
             </div>
             <div className="mb-16">
                 <div className="text-center">
-                    <h1 className="font-extrabold text-5xl text-center pb-14" data-aos="fade-up">Find us on the <span className="text-[#263077] italic" data-aos="fade-down">Business Listing Websites</span>
+                    <h1 className="font-extrabold text-5xl text-center pb-14">Find us on the <span className="text-[#263077] italic" data-aos="fade-down">Business Listing Websites</span>
                         <br />
                         <span className="border-b-8 border-[#263077] pt-6  md:w-20 h-2 absolute" ></span></h1>
-                    <p className="font-normal text-[#3F3F3F] text-center text-xl" data-aos="fade-up">We are committed to making it as convenient as possible for you to find and engage with our platform. Our presence on these business listing websites will help you connect with us in a variety of ways. Here are some of the platforms where you can find us</p>
+                    <p className="font-normal text-[#3F3F3F] text-center text-xl" >We are committed to making it as convenient as possible for you to find and engage with our platform. Our presence on these business listing websites will help you connect with us in a variety of ways. Here are some of the platforms where you can find us</p>
                 </div>
                 <FindUs></FindUs>
             </div>

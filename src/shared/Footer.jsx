@@ -1,4 +1,4 @@
-import logo from '../../public/icons/react.svg';
+import logo from '../../public/react.svg';
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaPeriscope } from 'react-icons/fa';
 import { AiOutlinePhone } from 'react-icons/ai';
 import { MdOutlineWatchLater } from 'react-icons/md';

@@ -3,10 +3,7 @@ import NavBar from "../shared/NavBar";
 import Footer from "../shared/Footer";
 
 
-
 const Main = () => {
-     
-
     return (
         <div>
              <div className="max-w-6xl mx-auto">
