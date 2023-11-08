@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import { Helmet } from "react-helmet";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+import axiosInstance from "../hooks/useAxiosSecure";
 
 
 const JobDetails = () => {
@@ -13,22 +13,32 @@ const JobDetails = () => {
     const [cardData, setCardData] = useState(null);
     const navigate = useNavigate();
     const [clickedId, setClickedId] = useState(null);
-    const axiosSecure = useAxiosSecure();
+    console.log(id);
+
 
     useEffect(() => {
-        axiosSecure.get(`http://localhost:5000/jobs/${id}`)
+        axiosInstance.get(`/jobs/${id}`, {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`,
+                'content-type': 'application/json'
+            },
+        })
             .then((response) => {
                 const foundCard = response.data;
-                // console.log(foundCard);
                 setCardData(foundCard);
             })
             .catch((error) => {
                 console.error('Error fetching job data', error);
             });
-    }, [id, axiosSecure]);
+    }, [id]);
 
     useEffect(() => {
-        axiosSecure.get('http://localhost:5000/mybids')
+        axiosInstance.get('/mybids', {
+            headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`,
+                'content-type': 'application/json'
+            },
+        })
             .then((response) => {
                 const data = response.data;
                 const button = data?.find((item) => item.email === user?.email);
@@ -37,9 +47,9 @@ const JobDetails = () => {
                 setClickedId(buttonid);
             })
             .catch((error) => {
-                console.error('Error while fetching data:', error);
+                console.error('Error while fetching mybids data:', error);
             });
-    }, [user, cardData, axiosSecure]);
+    }, [user, cardData]);
 
     const handleAddBid = event => {
         event.preventDefault();
@@ -52,13 +62,14 @@ const JobDetails = () => {
         const jobTitle = cardData?.job_title;
         const deadline = form.deadline.value;
 
-        const newProduct = { jobTitle, email, buyer, price, deadline, job_id ,status}
+        const newProduct = { jobTitle, email, buyer, price, deadline, job_id, status }
         // console.log(newProduct);
 
         // send data to the server
         fetch('http://localhost:5000/mybids', {
             method: "POST",
             headers: {
+                authorization: `Bearer ${localStorage.getItem('token')}`,
                 'content-type': 'application/json'
             },
             body: JSON.stringify(newProduct)
@@ -83,21 +94,21 @@ const JobDetails = () => {
         <div className="">
             <Helmet>
                 <title>JobHub | Job Details</title>
-                <link rel="shortcut icon" href="../../../public/add_job.png" type="image/x-icon" />
+                <link rel="shortcut icon" href="../../public/icons/add_job.png" type="image/x-icon" />
             </Helmet>
             <div className="mx-auto flex justify-around">
                 <div className="card w-96 my-4 card-compact">
                     <figure><img className='w-full' src={cardData?.image} alt="Shoes" /></figure>
                     <div className="card-body">
-                        <h2 className="card-title">{cardData?.job_title}</h2>
-                        <p>Price Range: {cardData?.price_range}</p>
-                        <p>Deadline: {cardData?.deadline}</p>
-                        <p>Description: {cardData?.short_description}</p>
+                        <h2 className="card-title" data-aos="fade-left">{cardData?.job_title}</h2>
+                        <p data-aos="fade-right">Price Range: {cardData?.price_range}</p>
+                        <p data-aos="fade-left">Deadline: {cardData?.deadline}</p>
+                        <p data-aos="fade-right">Description: {cardData?.short_description}</p>
                     </div>
                 </div>
             </div>
-            <div className=' pb-24'>
-                <h1 className='text-center font-extrabold mb-10 text-purple-500 text-4xl'>Place Your Bid</h1>
+            <div className=' pb-24 px-3'>
+                <h1 className='text-center font-extrabold mb-10 text-purple-500 text-4xl' data-aos="fade-up">Place Your Bid</h1>
                 <form onSubmit={handleAddBid}>
                     <div className='md:flex gap-6 justify-center mb-8'>
                         <div className="form-control md:w-1/2">

@@ -1,27 +1,23 @@
 /* eslint-disable react/prop-types */
+import { AiTwotoneDelete } from 'react-icons/ai';
 
-
-const MyBidsRow = ({ handleDelete, booking,handleBidComplete }) => {
-    const {_id, jobTitle, email, status,deadline } = booking;
-// console.log(status);
+const MyBidsRow = ({ handleDelete, booking, handleBidComplete }) => {
+    const { _id, jobTitle, email, status, deadline } = booking;
+    // console.log(status);
     return (
         <tr>
             <th>
                 <button onClick={() => handleDelete(_id)} className="btn btn-sm btn-circle">
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" /></svg>
+                <AiTwotoneDelete></AiTwotoneDelete>
                 </button>
             </th>
             <td>
-                <div className="avatar">
-                    <div className="rounded w-24 h-24">
-                        {jobTitle}
-                    </div>
-                </div>
+                {jobTitle}
             </td>
             <td> {email}</td>
             <td>{deadline}</td>
             <td>
-            {
+                {
                     status === 'reject' ? (
                         <span className="font-bold text-primary">Rejected</span>
                     ) : status === 'complete' ? (
@@ -32,9 +28,9 @@ const MyBidsRow = ({ handleDelete, booking,handleBidComplete }) => {
                 }
             </td>
             <th>
-                 {
-                    status === 'in progress'? (
-                        <button className="btn btn-xs" onClick={()=>handleBidComplete(_id)}>complete</button>
+                {
+                    status === 'in progress' ? (
+                        <button className="btn btn-xs" onClick={() => handleBidComplete(_id)}>complete</button>
                     ) : ''
                 }
             </th>

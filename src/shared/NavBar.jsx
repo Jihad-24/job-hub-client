@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import icon from "../../public/react.svg"
+import icon from "../../public/icons/react.svg"
 import Swal from "sweetalert2";
 import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";

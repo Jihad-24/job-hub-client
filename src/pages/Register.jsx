@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import Swal from "sweetalert2";
+import useToken from "../hooks/useToken";
 
 
 const Register = () => {
@@ -13,6 +14,16 @@ const Register = () => {
     const [registerError, setRegisterError] = useState('');
     const [success, setSuccess] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+
+    const [userEmail, setUserEmail] = useState(null);
+    const [token] = useToken(userEmail)
+
+    const from = location?.state ? location.state : "/";
+
+
+    if (token) {
+        navigate(from);
+    }
 
 
     const handleRegister = e => {
@@ -51,7 +62,7 @@ const Register = () => {
         // create User
         createUser(email, password)
             .then(result => {
-                console.log(result.user);
+                // console.log(result.user);
                 setSuccess('User Created Successfully')
                 const user = { name, email, password, photo };
                 fetch('http://localhost:5000/user', {
@@ -64,7 +75,8 @@ const Register = () => {
                     .then(res => res.json())
                     .then(data => {
                         if (data.insertedId) {
-                            console.log('User Added in DataBase')
+                            setUserEmail(result.user.email)
+                            // console.log('User Added in DataBase')
                             // success alert
                             Swal.fire({
                                 icon: 'success',
@@ -74,7 +86,7 @@ const Register = () => {
                     })
 
 
-                navigate(location?.state ? location.state : "/");
+                // navigate(location?.state ? location.state : "/");
 
             })
             .catch(error => {
@@ -90,12 +102,12 @@ const Register = () => {
     const handleGoogleSignIn = () => {
         signInGoogle()
             .then(result => {
-                console.log(result.user)
+                // console.log(result.user)
                 const email = result?.user?.email;
                 const displayName = result?.user?.displayName;
                 const photoURL = result?.user?.photoURL;
                 const user = { email, displayName, photoURL };
-                console.log(user);
+                // console.log(user);
                 fetch('http://localhost:5000/user', {
                     method: "POST",
                     headers: {
@@ -108,6 +120,7 @@ const Register = () => {
                         if (data.insertedId) {
                             // console.log('User Added in DataBase')
                             // success alert
+                            setUserEmail(email)
                             Swal.fire({
                                 icon: 'success',
                                 title: 'User Login Successfull'
@@ -115,7 +128,7 @@ const Register = () => {
                         }
                     })
 
-                navigate(location?.state ? location.state : "/");
+                // navigate(location?.state ? location.state : "/");
 
             })
             .catch(error => {
