@@ -52,7 +52,7 @@ const Login = () => {
                 const user = { email, displayName }
                 // console.log(user);
 
-                fetch('http://localhost:5000/user', {
+                fetch('https://b8a11-server-side-jihad-24.vercel.app/user', {
                     method: "POST",
                     headers: {
                         'content-type': 'application/json'

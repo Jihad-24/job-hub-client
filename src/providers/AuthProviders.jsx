@@ -11,7 +11,7 @@ const auth = getAuth(app);
 
 const googleProvider = new GoogleAuthProvider();
 
-const AuthProviders = ({children}) => {
+const AuthProviders = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
@@ -45,7 +45,7 @@ const AuthProviders = ({children}) => {
             setLoading(false);
             // if user exists then issue a token
             if (currentUser) {
-                axios.post('http://localhost:5000/jwt', loggedUser, {
+                axios.post('https://b8a11-server-side-jihad-24.vercel.app/jwt', loggedUser, {
                     withCredentials: true
                 })
                     .then(res => {
@@ -53,7 +53,7 @@ const AuthProviders = ({children}) => {
                     })
             }
             else {
-                axios.post('http://localhost:5000/logout', loggedUser, {
+                axios.post('https://b8a11-server-side-jihad-24.vercel.app/logout', loggedUser, {
                     withCredentials: true
                 })
                     .then(res => {
@@ -76,7 +76,7 @@ const AuthProviders = ({children}) => {
         signInGoogle,
         setLoading,
         logOut,
-       
+
     }
 
     return (

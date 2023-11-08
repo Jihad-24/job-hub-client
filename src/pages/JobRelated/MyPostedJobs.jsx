@@ -17,7 +17,7 @@ const MyPostedJobs = () => {
     useEffect(() => {
         setIsLoading(true);
 
-        axiosSecure.get('http://localhost:5000/mypostedjobs')
+        axiosSecure.get('https://b8a11-server-side-jihad-24.vercel.app/mypostedjobs')
             .then((response) => {
                 const data = response.data;
                 const jobs = data?.filter((item) => item.email === userEmail);
@@ -44,7 +44,7 @@ const MyPostedJobs = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result?.isConfirmed) {
-                fetch(`http://localhost:5000/mypostedjobs/${id}`, {
+                fetch(`https://b8a11-server-side-jihad-24.vercel.app/mypostedjobs/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())

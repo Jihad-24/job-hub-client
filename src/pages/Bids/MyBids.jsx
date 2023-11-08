@@ -18,7 +18,7 @@ const MyBids = () => {
         const fetchData = async () => {
             setIsLoading(true);
             try {
-                const response = await axiosSecure.get('http://localhost:5000/mybids');
+                const response = await axiosSecure.get('https://b8a11-server-side-jihad-24.vercel.app/mybids');
                 const data = await response.data;
                 // console.log(data);
                 const myJobs = data?.filter(item => item.email === userEmail);
@@ -51,7 +51,7 @@ const MyBids = () => {
             confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
             if (result?.isConfirmed) {
-                fetch(`http://localhost:5000/mybids/${id}`, {
+                fetch(`https://b8a11-server-side-jihad-24.vercel.app/mybids/${id}`, {
                     method: 'DELETE'
                 })
                     .then(res => res.json())
@@ -72,7 +72,7 @@ const MyBids = () => {
     }
 
     const handleBidComplete = id => {
-        fetch(`http://localhost:5000/mybids/${id}`, {
+        fetch(`https://b8a11-server-side-jihad-24.vercel.app/mybids/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

@@ -16,7 +16,7 @@ const JobDetails = () => {
     const axiosSecure = useAxiosSecure();
 
     useEffect(() => {
-        axiosSecure.get(`http://localhost:5000/jobs/${id}`)
+        axiosSecure.get(`https://b8a11-server-side-jihad-24.vercel.app/jobs/${id}`)
             .then((response) => {
                 const foundCard = response.data;
                 // console.log(foundCard);
@@ -28,7 +28,7 @@ const JobDetails = () => {
     }, [id, axiosSecure]);
 
     useEffect(() => {
-        axiosSecure.get('http://localhost:5000/mybids')
+        axiosSecure.get('https://b8a11-server-side-jihad-24.vercel.app/mybids')
             .then((response) => {
                 const data = response.data;
                 const button = data?.find((item) => item.email === user?.email);
@@ -56,7 +56,7 @@ const JobDetails = () => {
         // console.log(newProduct);
 
         // send data to the server
-        fetch('http://localhost:5000/mybids', {
+        fetch('https://b8a11-server-side-jihad-24.vercel.app/mybids', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

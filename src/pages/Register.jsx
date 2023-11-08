@@ -54,7 +54,7 @@ const Register = () => {
                 console.log(result.user);
                 setSuccess('User Created Successfully')
                 const user = { name, email, password, photo };
-                fetch('http://localhost:5000/user', {
+                fetch('https://b8a11-server-side-jihad-24.vercel.app/user', {
                     method: "POST",
                     headers: {
                         'content-type': 'application/json'
@@ -96,7 +96,7 @@ const Register = () => {
                 const photoURL = result?.user?.photoURL;
                 const user = { email, displayName, photoURL };
                 console.log(user);
-                fetch('http://localhost:5000/user', {
+                fetch('https://b8a11-server-side-jihad-24.vercel.app/user', {
                     method: "POST",
                     headers: {
                         'content-type': 'application/json'

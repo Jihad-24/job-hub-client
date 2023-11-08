@@ -15,7 +15,7 @@ const BidRequests = () => {
     useEffect(() => {
         setIsLoading(true);
 
-        axiosSecure.get('http://localhost:5000/mybids')
+        axiosSecure.get('https://b8a11-server-side-jihad-24.vercel.app/mybids')
             .then((response) => {
                 const myJobs = response.data?.filter((item) => item.email === userEmail);
                 setMyBids(myJobs);
@@ -30,7 +30,7 @@ const BidRequests = () => {
 
 
     const handleBidReject = id => {
-        fetch(`http://localhost:5000/mybids/${id}`, {
+        fetch(`https://b8a11-server-side-jihad-24.vercel.app/mybids/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -53,7 +53,7 @@ const BidRequests = () => {
     }
 
     const handleBidAccept = id => {
-        fetch(`http://localhost:5000/mybids/${id}`, {
+        fetch(`https://b8a11-server-side-jihad-24.vercel.app/mybids/${id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

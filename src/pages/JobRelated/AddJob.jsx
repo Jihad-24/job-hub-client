@@ -23,7 +23,7 @@ const AddJob = () => {
         console.log(newProduct);
 
         // send data to the server
-        fetch('http://localhost:5000/mypostedjobs', {
+        fetch('https://b8a11-server-side-jihad-24.vercel.app/mypostedjobs', {
             method: "POST",
             headers: {
                 'content-type': 'application/json'

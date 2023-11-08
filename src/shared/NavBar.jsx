@@ -15,7 +15,7 @@ const NavBar = () => {
     useEffect(() => {
         setLoading(true)
         if (email) {
-            fetch(`http://localhost:5000/user/${email}`)
+            fetch(`https://b8a11-server-side-jihad-24.vercel.app/user/${email}`)
                 .then(res => res.json())
                 .then(data => {
                     setuserData(data)

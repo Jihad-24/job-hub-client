@@ -35,12 +35,12 @@ const router = createBrowserRouter([
       },
       {
         path: '/bidrequests',
-        element:<PrivateRoute><BidRequests></BidRequests></PrivateRoute>,
+        element: <PrivateRoute><BidRequests></BidRequests></PrivateRoute>,
       },
       {
         path: '/updatejob/:id',
         element: <UpdateJob></UpdateJob>,
-        loader: ({ params }) => fetch(`http://localhost:5000/mypostedjobs/${params.id}`),
+        loader: ({ params }) => fetch(`https://b8a11-server-side-jihad-24.vercel.app/mypostedjobs/${params.id}`),
       },
       {
         path: '/jobs/:id',

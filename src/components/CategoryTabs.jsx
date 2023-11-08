@@ -14,7 +14,7 @@ const CategoryTabs = () => {
 
 
     useEffect(() => {
-        axiosSecure.get('http://localhost:5000/jobs')
+        axiosSecure.get('https://b8a11-server-side-jihad-24.vercel.app/jobs')
             .then(res => {
                 const jobData = res.data;
                 const webDevelopmentData = jobData.filter(job => job.category === "Web Development");
@@ -93,7 +93,7 @@ const CategoryTabs = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                     {graphicDesignJobs.map((job) => (
                         <div key={job._id}>
-                             <div className="card card-compact bg-base-100 shadow-xl">
+                            <div className="card card-compact bg-base-100 shadow-xl">
                                 <figure><img data-aos="fade-up" className='h-48 w-full' src={job.image} alt="Shoes" /></figure>
                                 <div className="card-body">
                                     <h2 className="card-title" data-aos="fade-left">{job.job_title}</h2>
