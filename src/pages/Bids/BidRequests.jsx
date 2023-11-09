@@ -76,7 +76,7 @@ const BidRequests = () => {
     }
 
     return (
-        <div>
+        <div className="py-10">
             <Helmet>
                 <title>JobHub | Bid Requests</title>
                 <link rel="shortcut icon" href="../../../public/icons/bid_requests.png" type="image/x-icon" />

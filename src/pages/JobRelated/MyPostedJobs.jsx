@@ -67,7 +67,7 @@ const MyPostedJobs = () => {
 
 
     return (
-        <div className="py-10">
+        <div className="py-10 mx-3">
             <Helmet>
                 <title>JobHub | My Posted Job</title>
                 <link rel="shortcut icon" href="../../../public/icons/my_jobs.png" type="image/x-icon" />
@@ -77,7 +77,7 @@ const MyPostedJobs = () => {
                     <div>Loading...</div>
                     :
                     (myJobs?.length ?
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mx-3">
                             {
                                 myJobs?.map((job) => (
                                     <div key={job._id}>

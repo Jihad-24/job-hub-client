@@ -4,7 +4,7 @@ const Banner = () => {
 
     const carousalText = <>
         <div className='text-white space-y-7 pl-12 w-1/2 hidden md:block' data-aos="fade-left">
-            <h2 className='text-6xl font-bold'>Explore Our Wide Range of Jobs</h2>
+            <h2 className='lg:text-6xl md:text-5xl font-bold'>Explore Our Wide Range of Jobs</h2>
             <p>Discover a variety of jobs tailored to your interests and goals. Choose from a diverse selection of subjects and start your job journey today.</p>
             <div>
                 <button className="btn btn-primary mr-5">Browse Jobs</button>

@@ -95,7 +95,7 @@ const MyBids = () => {
     }
 
     return (
-        <div>
+        <div className="py-10 ">
             <Helmet>
                 <title>JobHub | My Bids</title>
                 <link rel="shortcut icon" href="../../../public/icons/my_bid.png" type="image/x-icon" />
@@ -106,7 +106,7 @@ const MyBids = () => {
                     :
                     (myBids?.length ?
                         <div className="overflow-x-auto w-full">
-                            <table className="table w-full">
+                            <table className="table w-full ">
                                 <thead>
                                     <tr>
                                         <th>
