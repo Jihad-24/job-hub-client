@@ -79,6 +79,7 @@ const JobDetails = () => {
             })
     }
 
+
     return (
         <div className="">
             <Helmet>
@@ -115,7 +116,7 @@ const JobDetails = () => {
                             </label>
                             <label className="input-group">
                                 <span className='font-medium'>Buyer</span>
-                                <input type="text" name='buyer' defaultValue={user?.email} className="input input-bordered w-full" disabled />
+                                <input type="text" name='buyer' defaultValue={user?.email} className="input input-bordered w-full"  readOnly/>
                             </label>
                         </div>
                     </div>
@@ -135,7 +136,7 @@ const JobDetails = () => {
                             </label>
                             <label className="input-group">
                                 <span className='font-medium'>Date</span>
-                                <input type="date" name='deadline' defaultValue={cardData?.deadline} className="input input-bordered w-full" required />
+                                <input type="date" name='deadline' defaultValue={cardData?.deadline} className="input input-bordered w-full" required readOnly/>
                             </label>
                         </div>
 
